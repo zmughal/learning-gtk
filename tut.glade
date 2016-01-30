@@ -191,13 +191,12 @@
                     <property name="xscale">0</property>
                     <property name="yscale">0</property>
                     <child>
-                      <object class="GtkButtonBox" id="buttonbox1">
+                      <object class="GtkBox" id="box2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">2</property>
                         <property name="homogeneous">True</property>
-                        <property name="layout_style">center</property>
                         <child>
                           <object class="GtkButton" id="button1">
                             <property name="visible">True</property>
