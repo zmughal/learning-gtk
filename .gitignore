@@ -1,2 +1,3 @@
 *~
-charter
+*.o
+/charter/charter
