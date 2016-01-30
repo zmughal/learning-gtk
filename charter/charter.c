@@ -1,16 +1,13 @@
-/*
- * Compile me with:
- *   gcc -o tut tut.c $(pkg-config --cflags --libs gtk+-3.0)
- */
+#include "support.h"
 
-#include <gtk/gtk.h>
+#define UI_FILE "charter.glade"
 
 int
 main( int    argc,
       char **argv )
 {
+    ChData     *data;
     GtkBuilder *builder;
-    GtkWidget  *window;
     GError     *error = NULL;
 
     /* Init GTK+ */
@@ -18,29 +15,36 @@ main( int    argc,
 
     /* Create new GtkBuilder object */
     builder = gtk_builder_new();
-    /* Load UI from file. If error occurs, report it and quit application.
-     * Replace "tut.glade" with your saved project. */
-    if( ! gtk_builder_add_from_file( builder, "tut.glade", &error ) )
+    if( ! gtk_builder_add_from_file( builder, UI_FILE, &error ) )
     {
         g_warning( "%s", error->message );
         g_free( error );
         return( 1 );
     }
 
-    /* Get main window pointer from UI */
-    window = GTK_WIDGET( gtk_builder_get_object( builder, "window1" ) );
+    /* Allocate data structure */
+    data = g_slice_new( ChData );
+
+    /* Get objects from UI */
+#define GW( name ) CH_GET_WIDGET( builder, name, data )
+    GW( main_window );
+    GW( chart_area );
+#undef GW
 
     /* Connect signals */
-    gtk_builder_connect_signals( builder, NULL );
+    gtk_builder_connect_signals( builder, data );
 
     /* Destroy builder, since we don't need it anymore */
     g_object_unref( G_OBJECT( builder ) );
 
     /* Show window. All other widgets are automatically shown by GtkBuilder */
-    gtk_widget_show( window );
+    gtk_widget_show( data->main_window );
 
     /* Start main loop */
     gtk_main();
+
+    /* Free any allocated data */
+    g_slice_free( ChData, data );
 
     return( 0 );
 }

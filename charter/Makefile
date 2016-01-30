@@ -1,8 +1,10 @@
 LDFLAGS := `pkg-config --cflags --libs gtk+-3.0`
 
-BINS := tut
+BINS := charter
 
 all: $(BINS)
+
+charter: charter.c support.h
 
 .PHONY: clean
 
