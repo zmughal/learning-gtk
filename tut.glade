@@ -364,6 +364,7 @@
                                   <object class="GtkDrawingArea" id="chart_area">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <signal name="draw" handler="cb_draw_chart" swapped="no"/>
                                   </object>
                                 </child>
                                 <child type="label_item">
