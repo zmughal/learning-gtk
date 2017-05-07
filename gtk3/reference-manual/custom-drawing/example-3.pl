@@ -135,9 +135,9 @@ sub activate() {
 	# Ask to receive events the drawing area doesn't normally
 	# subscribe to. In particular, we need to ask for the
 	# button press and motion notify events that want to handle.
-	$drawing_area->add_events(
-		${ Gtk3::Gdk::EventMask->new([ qw/button-press-mask pointer-motion-mask/ ]) }
-	);
+	$drawing_area->set_events(
+		  $drawing_area->get_events
+		| [ qw/button-press-mask pointer-motion-mask/ ] );
 
 	$window->show_all;
 }
