@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <locale.h>
 #include <goocanvas.h>
 
 
@@ -19,14 +20,14 @@ main (int argc, char *argv[])
   GooCanvasItem *root, *rect_item, *text_item;
 
   /* Initialize GTK+. */
-  gtk_set_locale ();
+  setlocale (LC_ALL, "");
   gtk_init (&argc, &argv);
 
   /* Create the window and widgets. */
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_default_size (GTK_WINDOW (window), 640, 600);
   gtk_widget_show (window);
-  g_signal_connect (window, "delete_event", (GtkSignalFunc) on_delete_event,
+  g_signal_connect (window, "delete_event", (GCallback) on_delete_event,
                     NULL);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
@@ -53,14 +54,14 @@ main (int argc, char *argv[])
                                    NULL);
 
   text_item = goo_canvas_text_new (root, "Hello World", 300, 300, -1,
-                                   GTK_ANCHOR_CENTER,
+                                   GOO_CANVAS_ANCHOR_CENTER,
                                    "font", "Sans 24",
                                    NULL);
   goo_canvas_item_rotate (text_item, 45, 300, 300);
 
   /* Connect a signal handler for the rectangle item. */
   g_signal_connect (rect_item, "button_press_event",
-                    (GtkSignalFunc) on_rect_button_press, NULL);
+                    (GCallback) on_rect_button_press, NULL);
 
   /* Pass control to the GTK+ main event loop. */
   gtk_main ();
