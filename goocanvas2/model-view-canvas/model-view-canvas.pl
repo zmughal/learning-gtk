@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# ABSTRACT: A model/view-based GooCanvas
+# ABSTRACT: A model/view-based GooCanvas2
 
 use Gtk3 qw(-init);
 use Glib qw(TRUE FALSE);
@@ -9,7 +9,7 @@ sub _include_goocanvas {
 	Glib::Object::Introspection->setup(
 		basename => 'GooCanvas',
 		version => '2.0',
-		package => 'GooCanvas', );
+		package => 'GooCanvas2', );
 }
 
 # This handles button presses in item views. We simply output a message to
@@ -43,16 +43,16 @@ sub main {
 	$scrolled_win->show;
 	$window->add($scrolled_win);
 
-	my $canvas = GooCanvas::Canvas->new;
+	my $canvas = GooCanvas2::Canvas->new;
 	$canvas->set_size_request(600, 450);
 	$canvas->set_bounds(0, 0, 1000, 1000);
 	$canvas->show;
 	$scrolled_win->add( $canvas );
 
-	my $root = GooCanvas::CanvasGroupModel->new;
+	my $root = GooCanvas2::CanvasGroupModel->new;
 
 	# Add a few simple items.
-	my $rect_model = GooCanvas::CanvasRectModel->new(
+	my $rect_model = GooCanvas2::CanvasRectModel->new(
 		parent => $root,
 		x => 100,
 		y => 100,
@@ -65,7 +65,7 @@ sub main {
 		"fill-color", "red",
 		);
 
-	my $text_model = GooCanvas::CanvasTextModel->new(
+	my $text_model = GooCanvas2::CanvasTextModel->new(
 		parent => $root,
 		text => "Hello World",
 		x => 300, y => 300, width => -1,

@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-# ABSTRACT: A simple GooCanvas-based canvas
+# ABSTRACT: A simple GooCanvas2-based canvas
 
 use Gtk3 qw(-init);
 use Glib qw(TRUE FALSE);
@@ -9,7 +9,7 @@ sub _include_goocanvas {
 	Glib::Object::Introspection->setup(
 		basename => 'GooCanvas',
 		version => '2.0',
-		package => 'GooCanvas', );
+		package => 'GooCanvas2', );
 }
 
 # This handles button presses in item views. We simply output a message to
@@ -43,7 +43,7 @@ sub main {
 	$scrolled_win->show;
 	$window->add($scrolled_win);
 
-	my $canvas = GooCanvas::Canvas->new;
+	my $canvas = GooCanvas2::Canvas->new;
 	$canvas->set_size_request(600, 450);
 	$canvas->set_bounds(0, 0, 1000, 1000);
 	$canvas->show;
@@ -52,7 +52,7 @@ sub main {
 	my $root = $canvas->get_root_item;
 
 	# Add a few simple items.
-	my $rect_item = GooCanvas::CanvasRect->new(
+	my $rect_item = GooCanvas2::CanvasRect->new(
 		parent => $root,
 		x => 100,
 		y => 100,
@@ -65,7 +65,7 @@ sub main {
 		"fill-color", "red",
 		);
 
-	my $text_item = GooCanvas::CanvasText->new(
+	my $text_item = GooCanvas2::CanvasText->new(
 		parent => $root,
 		text => "Hello World",
 		x => 300, y => 300, width => -1,
